@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMPCorp - Products</title>
+    <link rel="icon" href="Img/LogoIcon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        /* HEADER - FROM TEMPLATE */
+        .site-header {
+            background: #0f215a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 20px;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 60px;
+        }
+
+        /* LOGO */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            height: 44px;
+        }
+
+        .nav-logo {
+            width: 100px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+            border-color: #e0423d;
+            box-shadow: 0 0 10px rgba(224, 66, 61, 0.7);
+        }
+
+        .nav-logo img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+        }
+
+        /* NAVIGATION */
+        .NavHeader {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 2px 0;
+        }
+
+        .nav-list li {
+            flex-shrink: 1;
+        }
+
+        .nav-list li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 6px 10px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border-radius: 5px;
+            white-space: nowrap;
+            position: relative;
+            line-height: 1.2;
+        }
+
+        /* ENHANCED HOVER EFFECT */
+        .nav-list li a:hover {
+            text-shadow: 0 0 10px #e0423d,
+                         0 0 10px #e0423d,
+                         0 0 10px #e0423d;
+            color: #fff;
+            border-radius: 4px;
+            transform: scale(1.1);
+            background: rgba(224, 66, 61, 0.15);
+            box-shadow: 0 0 15px rgba(224, 66, 61, 0.4);
+        }
+
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: auto;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            color: #e0423d;
+            transform: scale(1.1);
+            text-shadow: 0 0 10px #e0423d;
+        }
+
+        /* RESPONSIVE DESIGN - FROM TEMPLATE */
+        @media (max-width: 1024px) {
+            .site-header {
+                padding: 6px 15px;
+                min-height: 55px;
+            }
+            
+            .nav-list {
+                gap: 8px;
+            }
+            
+            .nav-list li a {
+                font-size: 15px;
+                padding: 5px 8px;
+            }
+            
+            .nav-logo {
+                width: 90px;
+                height: 45px;
+            }
+            
+            .logo-container {
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 5px 12px;
+                min-height: 50px;
+            }
+            
+            .nav-list {
+                gap: 6px;
+            }
+            
+            .nav-list li a {
+                font-size: 14px;
+                padding: 4px 7px;
+            }
+            
+            .nav-logo {
+                width: 80px;
+                height: 40px;
+            }
+            
+            .logo-container {
+                height: 40px;
+            }
+            
+            .nav-list li a i {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 4px 10px;
+                min-height: 48px;
+                gap: 8px;
+            }
+            
+            .nav-logo {
+                width: 70px;
+                height: 35px;
+            }
+            
+            .logo-container {
+                height: 35px;
+            }
+            
+            .NavHeader {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0f215a;
+                padding: 12px 15px;
+                z-index: 1000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            
+            .NavHeader.active {
+                display: block;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+            }
+            
+            .nav-list li {
+                width: 100%;
+            }
+            
+            .nav-list li a {
+                display: flex;
+                padding: 10px 12px;
+                font-size: 15px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                justify-content: flex-start;
+                gap: 10px;
+                transform: none !important;
+            }
+            
+            .nav-list li:last-child a {
+                border-bottom: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-list li a:hover {
+                text-shadow: 0 0 10px #e0423d,
+                             0 0 10px #e0423d,
+                             0 0 10px #e0423d;
+                background: rgba(224, 66, 61, 0.2);
+                padding-left: 20px;
+                transform: none !important;
+                box-shadow: 0 0 10px rgba(224, 66, 61, 0.3);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-header {
+                padding: 3px 8px;
+                min-height: 45px;
+            }
+            
+            .nav-logo {
+                width: 60px;
+                height: 30px;
+                border-width: 2px;
+            }
+            
+            .logo-container {
+                height: 30px;
+            }
+            
+            .menu-toggle {
+                font-size: 20px;
+            }
+            
+            .nav-list li a {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .nav-list li a i {
+                font-size: 13px;
+            }
+            
+            .nav-list li a:hover {
+                padding-left: 16px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .site-header {
+                padding: 10px 40px;
+                min-height: 70px;
+            }
+            
+            .nav-list {
+                gap: 15px;
+            }
+            
+            .nav-list li a {
+                font-size: 18px;
+                padding: 8px 12px;
+            }
+            
+            .nav-logo {
+                width: 120px;
+                height: 60px;
+            }
+            
+            .logo-container {
+                height: 60px;
+            }
+            
+            .nav-list li a:hover {
+                transform: scale(1.15);
+                text-shadow: 0 0 12px #e0423d,
+                             0 0 12px #e0423d,
+                             0 0 12px #e0423d;
+            }
+        }
+
+        /* Admin Access Button */
+        .admin-access {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .admin-btn {
+            background: #e0423d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .admin-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 66, 61, 0.3);
+        }
+
+        /* MAIN (flex-grow makes it stay in the middle) */
+        .site-content {
+            flex: 1;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 10px;
+            margin: 20px 0 40px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: #0f215a;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            border: 1px solid #e1e5eb;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .search-title {
+            color: #0f215a;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .search-description {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto 25px;
+            background: #f8f9fa;
+            border-radius: 50px;
+            padding: 5px;
+            border: 2px solid #e1e5eb;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:hover {
+            border-color: #0f215a;
+            box-shadow: 0 5px 15px rgba(15, 33, 90, 0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 20px 25px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .search-box button {
+            background: #0f215a;
+            color: white;
+            border: none;
+            padding: 0 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box button:hover {
+            background: #e0423d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 66, 61, 0.3);
+        }
+
+        .search-stats {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .search-results-count {
+            color: #0f215a;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e1e5eb;
+        }
+
+        .filters-title {
+            color: #0f215a;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-label {
+            color: #555;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .filter-select {
+            padding: 15px 20px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #333;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #0f215a;
+            box-shadow: 0 0 0 3px rgba(15, 33, 90, 0.1);
+        }
+
+        /* Products Section */
+        .Products {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #0f215a;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e0423d;
+        }
+
+        .product-count {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e1e5eb;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: #0f215a;
+        }
+
+        .product-card.highlight {
+            animation: highlightPulse 2s infinite;
+            border: 2px solid #e0423d;
+        }
+
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 5px 20px rgba(224, 66, 61, 0.3); }
+            50% { box-shadow: 0 5px 30px rgba(224, 66, 61, 0.5); }
+            100% { box-shadow: 0 5px 20px rgba(224, 66, 61, 0.3); }
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            display: inline-block;
+            background: #0f215a;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        .product-name {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .product-id {
+            color: #888;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .view-details {
+            background: #e0423d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-details:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 66, 61, 0.3);
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin: 40px 0;
+            border: 2px dashed #e1e5eb;
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            color: #e0423d;
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            color: #0f215a;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .no-results p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .clear-search {
+            background: #0f215a;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .clear-search:hover {
+            background: #e0423d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(15, 33, 90, 0.2);
+        }
+
+        /* Product Details Modal */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: #0f215a;
+            color: white;
+            padding: 25px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #e0423d;
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .modal-image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .modal-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-category {
+            display: inline-block;
+            background: #0f215a;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        .modal-specs {
+            margin: 20px 0;
+        }
+
+        .modal-specs h3 {
+            color: #0f215a;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0423d;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .spec-value {
+            color: #0f215a;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .modal-warranty {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #e0423d;
+        }
+
+        .modal-warranty h4 {
+            color: #0f215a;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-btn {
+            background: #e0423d;
+            color: white;
+        }
+
+        .contact-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 66, 61, 0.3);
+        }
+
+        .trial-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .trial-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .close-btn {
+            background: #0f215a;
+            color: white;
+        }
+
+        .close-btn:hover {
+            background: #091842;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(15, 33, 90, 0.3);
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .video-modal-content {
+            width: 90%;
+            max-width: 900px;
+            background: #0f215a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .video-modal-header {
+            background: #0f215a;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-modal-header h2 {
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .video-modal-body {
+            padding: 0;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 500px;
+            background: #000;
+            position: relative;
+        }
+
+        .video-player video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #f8f9fa;
+            color: #333;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .video-error-icon {
+            font-size: 3rem;
+            color: #e0423d;
+            margin-bottom: 20px;
+        }
+
+        .video-error h3 {
+            color: #0f215a;
+            margin-bottom: 10px;
+        }
+
+        .video-error p {
+            color: #666;
+            margin-bottom: 20px;
+            max-width: 500px;
+        }
+
+        .video-modal-info {
+            padding: 20px 30px;
+            background: white;
+        }
+
+        .video-modal-title {
+            color: #0f215a;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .video-modal-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* FOOTER */
+        .site-footer {
+            background: #0f215a;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #e0423d;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .video-player {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .modal-image {
+                max-height: 300px;
+            }
+            
+            .video-player {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .search-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .filters-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .search-box input {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .search-box button {
+                padding: 15px;
+                border-radius: 0 0 15px 15px;
+                justify-content: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .admin-access {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin: 10px auto;
+                text-align: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+            
+            .video-modal-content {
+                width: 95%;
+            }
+            
+            .modal-header {
+                padding: 20px;
+            }
+            
+            .video-modal-header {
+                padding: 15px 20px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .video-player {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 40px 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+            
+            .search-section,
+            .filters-section {
+                padding: 25px 15px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-card {
+                margin-bottom: 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .video-modal-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .video-player {
+                height: 200px;
+            }
+            
+            .video-modal-info {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- UPDATED HEADER WITH RESPONSIVE TEMPLATE -->
+    <header class="site-header">
+        <div class="logo-container">
+            <div class="nav-logo">
+                <img src="Logo1.png" alt="SMPCorp Logo">
+            </div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="NavHeader" id="mainNav">
+            <ul class="nav-list">
+                <li><a href="Home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="Trial Run.html"><i class="fas fa-cogs"></i> <span>Trial Run</span></a></li>
+                <li><a href="Products.html"><i class="fas fa-industry"></i> <span>Products</span></a></li>
+                <li><a href="About.html"><i class="fas fa-info-circle"></i> <span>About</span></a></li>
+                <li><a href="Contact.html"><i class="fas fa-phone"></i> <span>Contact</span></a></li>
+            </ul>
+        </nav>
+        
+        <!-- Admin Access Button -->
+        <div class="admin-access">
+            <button class="admin-btn" id="adminBtn">
+                <i class="fas fa-cog"></i> Admin Panel
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="site-content">
+        <div class="page-header">
+            <h1>Our Products</h1>
+            <p>Discover our extensive range of high-quality industrial machines designed for efficiency, reliability, and performance.</p>
+        </div>
+        
+        <!-- SEARCH SECTION -->
+        <div class="search-section">
+            <div class="search-container">
+                <h2 class="search-title">Find Your Perfect Machine</h2>
+                <p class="search-description">Search through our catalog of premium industrial machines by name, category, or description.</p>
+                
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search for machines (e.g., 'filling machine', 'labeling', 'sealing')">
+                    <button id="searchBtn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                
+                <div class="search-stats">
+                    Showing <span id="resultsCount" class="search-results-count">0</span> products
+                </div>
+            </div>
+        </div>
+        
+        <!-- FILTERS SECTION -->
+        <div class="filters-section">
+            <h3 class="filters-title"><i class="fas fa-filter"></i> Filter Products</h3>
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label class="filter-label">Category</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="filling">Filling Machines</option>
+                        <option value="sealing">Sealing Machines</option>
+                        <option value="labeling">Labeling Machines</option>
+                        <option value="mixing">Mixing Machines</option>
+                        <option value="packaging">Packaging Machines</option>
+                        <option value="capping">Capping Machines</option>
+                        <option value="printing">Printing Machines</option>
+                        <option value="heating">Heating Equipment</option>
+                        <option value="testing">Testing Equipment</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Sort By</label>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="default">Default Order</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">View</label>
+                    <select id="viewFilter" class="filter-select">
+                        <option value="grid">Grid View</option>
+                        <option value="list">List View</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PRODUCTS GRID -->
+        <div class="Products">
+            <h2 class="section-title">Industrial Machines Catalog</h2>
+            <div class="product-count" id="productCountText">Displaying 0 premium industrial machines</div>
+            
+            <div class="products-grid" id="productsGrid">
+                <!-- Product cards will be generated by JavaScript -->
+            </div>
+            
+            <!-- No results message (hidden by default) -->
+            <div class="no-results" id="noResultsMessage" style="display: none;">
+                <div class="no-results-icon">
+                    <i class="fas fa-search-minus"></i>
+                </div>
+                <h3>No Products Found</h3>
+                <p>We couldn't find any products matching your search. Try using different keywords or browse all products.</p>
+                <button class="clear-search" id="clearSearchBtn">Show All Products</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2023 SMPCorp Industrial Machines. All rights reserved.</p>
+            <p>sophiatradinginc@gmail.com | +1 (555) 123-4567</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="support.html">Technical Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Details Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalProductName">Product Details</h2>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modalProductImage" src="" alt="Product Image" class="modal-image">
+                    <span class="modal-category" id="modalProductCategory">Category</span>
+                </div>
+                <div class="modal-details">
+                    <div class="modal-specs">
+                        <h3>Product Specifications</h3>
+                        <div class="specs-grid" id="modalSpecsGrid">
+                            <!-- Specifications will be filled by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="modal-warranty">
+                        <h4><i class="fas fa-shield-alt"></i> Warranty Information</h4>
+                        <p id="modalWarranty">No warranty information available</p>
+                    </div>
+                    
+                    <div id="modalProductDescription" style="margin-top: 20px; color: #666; line-height: 1.6;">
+                        <!-- Description will be filled by JavaScript -->
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button class="modal-btn contact-btn" id="contactBtn">
+                            <i class="fas fa-phone"></i> Contact for Quote
+                        </button>
+                        <button class="modal-btn trial-btn" id="trialRunBtn">
+                            <i class="fas fa-video"></i> Watch Trial Run
+                        </button>
+                        <button class="modal-btn close-btn" id="modalCloseBtn">
+                            <i class="fas fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h2 id="videoModalTitle">Trial Run Video</h2>
+                <button class="close-modal" id="closeVideoModalBtn">&times;</button>
+            </div>
+            <div class="video-modal-body">
+                <div class="video-player" id="videoPlayer">
+                    <video id="trialRunVideo" controls>
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-error" id="videoError" style="display: none;">
+                        <div class="video-error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Video Unavailable</h3>
+                        <p id="videoErrorMessage">The trial run video is currently unavailable.</p>
+                        <button class="modal-btn contact-btn" id="videoContactBtn">
+                            <i class="fas fa-phone"></i> Contact for Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="video-modal-info">
+                    <h3 class="video-modal-title" id="videoModalProductName">Product Name</h3>
+                    <p class="video-modal-description" id="videoModalDescription">Product description will appear here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle functionality from template
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        const menuIcon = menuToggle.querySelector('i');
+        
+        menuToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            
+            // Toggle between hamburger and close icon
+            if (mainNav.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close menu when clicking on a link (for mobile)
+        const navLinks = document.querySelectorAll('.nav-list li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 600) {
+                    mainNav.classList.remove('active');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Close menu when clicking outside (for mobile)
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 600) {
+                const isClickInsideHeader = event.target.closest('.site-header');
+                
+                if (!isClickInsideHeader && mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 600) {
+                mainNav.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Shared Data Storage (uses localStorage to connect both pages)
+        const STORAGE_KEY = 'smpcorp_products';
+        
+        // Load products from localStorage or use default
+        function loadProducts() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                return JSON.parse(saved);
+            } else {
+                // Initial default products with ALL 32 PRODUCTS
+                return [
+                    {
+                        id: 1,
+                        name: "Manual Filling Machine with Guide",
+                        category: "filling",
+                        image: "img/machine/A03 PRO MANUAL FILLING MACHINE WITH GUIDE.jpg",
+                        video: "clip vids/Manual Handheld Inkjet Printer & Solvent Ink (4) - Copy.mp4",
+                        description: "Precision manual filling machine with guide for accurate filling of liquids, creams, and pastes. Ideal for small to medium production lines.",
+                        specs: {
+                            voltage: "110V/220V",
+                            size: "820*320*310mm",
+                            power: "500W",
+                            fillingRange: "5-100ml & 10-100ml",
+                            fillingAccuracy: "±0.5%",
+                            noise: "<65 dB",
+                            workingSpeed: "20-30 times/min",
+                            material: "Stainless Steel 304",
+                            hopperVolume: "10L",
+                            weight: "9.8kg"
+                        },
+                        customSpecs: [
+                            { name: "Production Rate", value: "30-40 bottles/hour" },
+                            { name: "Air Pressure", value: "0.5-0.7 MPa" },
+                            { name: "Accuracy", value: "±0.5%" },
+                            { name: "Nozzle Material", value: "Food Grade Stainless Steel" }
+                        ],
+                        warranty: "12 Months Service Warranty with 6 months free maintenance"
+                    },
+                    {
+                        id: 2,
+                        name: "Automatic Capping Machine",
+                        category: "capping",
+                        image: "img/machine/capping-machine.jpg",
+                        video: "videos/capping-machine-demo.mp4",
+                        description: "High-speed automatic capping machine for various bottle sizes and cap types. Features torque control and cap detection.",
+                        specs: {
+                            voltage: "220V/380V",
+                            size: "1500*800*1200mm",
+                            power: "1.5KW",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "<70 dB",
+                            workingSpeed: "40-60 bottles/min",
+                            material: "Stainless Steel 316",
+                            hopperVolume: "N/A",
+                            weight: "350kg"
+                        },
+                        customSpecs: [
+                            { name: "Cap Size Range", value: "15-60mm" },
+                            { name: "Bottle Height", value: "50-300mm" },
+                            { name: "Torque Adjustment", value: "Yes" },
+                            { name: "Cap Detection", value: "Yes" }
+                        ],
+                        warranty: "18 Months Warranty with free installation"
+                    },
+                    {
+                        id: 3,
+                        name: "Semi-Automatic Labeling Machine",
+                        category: "labeling",
+                        image: "img/machine/labeling-machine.jpg",
+                        video: "videos/labeling-machine-demo.mp4",
+                        description: "Versatile labeling machine for round bottles, containers, and flat surfaces. Adjustable for various label sizes.",
+                        specs: {
+                            voltage: "220V",
+                            size: "800*500*400mm",
+                            power: "200W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "±0.5mm",
+                            noise: "<60 dB",
+                            workingSpeed: "20-40 products/min",
+                            material: "Aluminum & Steel",
+                            hopperVolume: "N/A",
+                            weight: "45kg"
+                        },
+                        customSpecs: [
+                            { name: "Label Width", value: "20-150mm" },
+                            { name: "Label Length", value: "20-200mm" },
+                            { name: "Application Accuracy", value: "±0.5mm" },
+                            { name: "Bottle Diameter", value: "20-120mm" }
+                        ],
+                        warranty: "12 Months Warranty with training"
+                    },
+                    {
+                        id: 4,
+                        name: "Table Top Automatic Round Labeling Machine",
+                        category: "labeling",
+                        image: "img/machine/TABLE TOP AUTOMATIC AUTOMATIC ROUND LABELING AMCHINE.jpg",
+                        video: "clip vids/labeling-round-demo.mp4",
+                        description: "Automatic round labeling machine for bottles with high precision labeling capability of 25-100 pieces per minute.",
+                        specs: {
+                            voltage: "220V/50Hz",
+                            size: "1220*850*800mm",
+                            power: "Not specified",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "±1.0mm",
+                            noise: "Not specified",
+                            workingSpeed: "25-100pcs/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "226kg"
+                        },
+                        customSpecs: [
+                            { name: "Labeling Capacity", value: "25-100pcs/min" },
+                            { name: "Labeling Accuracy", value: "±1.0mm" },
+                            { name: "Suitable Bottle Diameter", value: "30-120mm" },
+                            { name: "Label Size", value: "Length: 25-300mm, Height: 25-150mm" },
+                            { name: "Roll Inside Diameter", value: "75mm" },
+                            { name: "Roll Outside Diameter", value: "300mm" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 5,
+                        name: "Semi-Automatic Flat Labeling Machine",
+                        category: "labeling",
+                        image: "img/machine/SEMI-AUTOMATIC FLAT LABELING MACHINE .jpg",
+                        video: "clip vids/flat-labeling-demo.mp4",
+                        description: "Semi-automatic flat labeling machine with high accuracy for various products. Model LT-60 with 120W power.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "670*370*680mm",
+                            power: "120W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "+1mm",
+                            noise: "Not specified",
+                            workingSpeed: "25-50pcs/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "30kg"
+                        },
+                        customSpecs: [
+                            { name: "Model", value: "LT-60" },
+                            { name: "Power", value: "120W" },
+                            { name: "Label Speed", value: "25-50pcs/min" },
+                            { name: "Label Accuracy", value: "+1mm" },
+                            { name: "Label Roll Inner Diameter", value: "75mm" },
+                            { name: "Max Label Roll Diameter", value: "250mm" },
+                            { name: "Suitable Width", value: "10mm-120mm" },
+                            { name: "Label Width", value: "W60xL120mm" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 6,
+                        name: "Semi-Automatic Capping Machine",
+                        category: "capping",
+                        image: "img/machine/SEMI-AUTOMATIC CAPPING MACHINE.jpg",
+                        video: "clip vids/capping-demo.mp4",
+                        description: "Semi-automatic capping machine for various cap sizes with adjustable height. Model DHST-450A.",
+                        specs: {
+                            voltage: "220V/50Hz",
+                            size: "430*404*580mm",
+                            power: "40W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "Not specified",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "20kg"
+                        },
+                        customSpecs: [
+                            { name: "Model", value: "DHST-450A" },
+                            { name: "Power", value: "40W" },
+                            { name: "Cap Diameter Range", value: "15-25mm, 25-35mm, 35-50mm, 50-90mm" },
+                            { name: "Bottle Height Range", value: "40-200mm" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 7,
+                        name: "Shrink Tunnel Table Type",
+                        category: "packaging",
+                        image: "img/machine/SHRINK TUNNEL TABLE TYPE.jpg",
+                        video: "clip vids/shrink-tunnel-demo.mp4",
+                        description: "Table type shrink tunnel machine for packaging with film and foil. 3KW power with adjustable conveyor speed.",
+                        specs: {
+                            voltage: "AC 220V/60Hz",
+                            size: "1000*420*500mm",
+                            power: "3KW",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "0-10m/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "35kg"
+                        },
+                        customSpecs: [
+                            { name: "Type", value: "Wrapping Machine" },
+                            { name: "Packaging Type", value: "Film, Foil" },
+                            { name: "Tunnel Length", value: "75cm" },
+                            { name: "Tunnel Height", value: "16cm" },
+                            { name: "Tunnel Width", value: "26cm" },
+                            { name: "Conveyor Type", value: "Mesh & Tube" },
+                            { name: "Conveyor Loading", value: "3kg max" },
+                            { name: "Conveyor Speed", value: "0-10m/min" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 8,
+                        name: "Single Vacuum Packaging Machine",
+                        category: "packaging",
+                        image: "img/machine/SINGLE VACUUM PACKAGING MACHINE.jpg",
+                        video: "clip vids/vacuum-packaging-demo.mp4",
+                        description: "Single chamber vacuum packaging machine for food and industrial products with 720W power.",
+                        specs: {
+                            voltage: "220V/50Hz",
+                            size: "510*440*770mm",
+                            power: "720W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "Not specified",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "58kg"
+                        },
+                        customSpecs: [
+                            { name: "Vacuum Pump", value: "13 m3/h" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 9,
+                        name: "Solvent Ink",
+                        category: "printing",
+                        image: "img/machine/SOLVENT INK .jpg",
+                        video: "clip vids/ink-demo.mp4",
+                        description: "High-quality solvent ink for coding and marking on various surfaces. Can print text, numbers, dates, QR codes, and images.",
+                        specs: {
+                            voltage: "N/A",
+                            size: "9.5*7*2mm",
+                            power: "N/A",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "N/A",
+                            workingSpeed: "N/A",
+                            material: "N/A",
+                            hopperVolume: "N/A",
+                            weight: "20g"
+                        },
+                        customSpecs: [
+                            { name: "Ink Type", value: "Solvent Ink" },
+                            { name: "Print Dimension", value: "2-12.7mm" },
+                            { name: "Ink Colors Available", value: "White, Red, Yellow, Black, etc." },
+                            { name: "Usage", value: "Aluminum, Jar, Bottles, Plastic, Glass, etc." },
+                            { name: "Printing Content", value: "Text, Number, Date, QR Code, Image" },
+                            { name: "Capacity", value: "800,000 prints" }
+                        ],
+                        warranty: "3 Days Replacement"
+                    },
+                    {
+                        id: 10,
+                        name: "Semi-Pneumatics Filling Machine",
+                        category: "filling",
+                        image: "img/machine/SEMI-PNEUMATICS FILLING MACHINE .jpg",
+                        video: "clip vids/pneumatic-filling-demo.mp4",
+                        description: "Semi-pneumatic filling machine for precise liquid filling applications with 60-70 times per minute speed.",
+                        specs: {
+                            voltage: "Not specified",
+                            size: "330*340*60mm",
+                            power: "No power required (pneumatic)",
+                            fillingRange: "5-50ml",
+                            fillingAccuracy: "+1%",
+                            noise: "Not specified",
+                            workingSpeed: "60-70 times/min",
+                            material: "SSS304 (Stainless Steel 304)",
+                            hopperVolume: "10kg",
+                            weight: "12kg"
+                        },
+                        customSpecs: [
+                            { name: "Nozzle", value: "2 Free Nozzle 4mm & 8mm" },
+                            { name: "Air Pressure", value: "0.4-0.6 MPa" },
+                            { name: "Material", value: "SSS304 (Stainless Steel 304)" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 11,
+                        name: "Industrial Hotplate",
+                        category: "heating",
+                        image: "img/machine/INDUSTRIAL HOTPLATE.jpg",
+                        video: "clip vids/hotplate-demo.mp4",
+                        description: "Industrial hotplate for various heating applications in manufacturing and processing.",
+                        specs: {
+                            voltage: "220V/660Hz",
+                            size: "200*100*100mm",
+                            power: "Not specified",
+                            fillingRange: "5-50ml",
+                            fillingAccuracy: "±1%",
+                            noise: "Not specified",
+                            workingSpeed: "60-70 times/min",
+                            material: "SSS304 (Stainless Steel 304)",
+                            hopperVolume: "10kg",
+                            weight: "12kg"
+                        },
+                        customSpecs: [
+                            { name: "Nozzle", value: "2 Free Nozzle 4mm & 8mm" },
+                            { name: "Air Pressure", value: "0.4-0.6 MPa" },
+                            { name: "Material", value: "SSS304 (Stainless Steel 304)" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 12,
+                        name: "ROPP Semi-Automatic Capping Machine",
+                        category: "capping",
+                        image: "img/machine/ROPP SEMI-AUTOMATIC CAPPING MACHINE.jpg",
+                        video: "clip vids/ropp-capping-demo.mp4",
+                        description: "ROPP (Roll-On Pilfer Proof) semi-automatic capping machine for secure bottle capping.",
+                        specs: {
+                            voltage: "N/A",
+                            size: "820*320*310mm",
+                            power: "No power required",
+                            fillingRange: "5-100ml & 10-100ml",
+                            fillingAccuracy: "+1%",
+                            noise: "Not specified",
+                            workingSpeed: "20-30 times/min",
+                            material: "SS304",
+                            hopperVolume: "10kg",
+                            weight: "9.5kg"
+                        },
+                        customSpecs: [
+                            { name: "Nozzle", value: "2 Free Nozzle 4mm & 8mm" },
+                            { name: "Material", value: "SS304" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 13,
+                        name: "Industrial Stick Blender",
+                        category: "mixing",
+                        image: "img/machine/INDUSTRIAL STICK BLENDER.jpg",
+                        video: "clip vids/stick-blender-demo.mp4",
+                        description: "Industrial stick blender for mixing and blending applications with variable speed control.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "50*51*500mm",
+                            power: "500W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "80-85dB",
+                            workingSpeed: "4000-16000 RPM",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "5kg"
+                        },
+                        customSpecs: [
+                            { name: "Model", value: "IB500LV" },
+                            { name: "Total Height", value: "900mm" },
+                            { name: "Noise Level", value: "80-85dB" },
+                            { name: "RPM Speed", value: "4,000-16,000" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 14,
+                        name: "Pneumatic Cream and Paste Filling Machine",
+                        category: "filling",
+                        image: "img/machine/PNEUMATIC CREAM and PASTE FILLING MACHINE.jpg",
+                        video: "clip vids/cream-filling-demo.mp4",
+                        description: "Pneumatic filling machine specifically designed for creams and pastes with high-speed operation.",
+                        specs: {
+                            voltage: "220V/660Hz",
+                            size: "220*380*350mm",
+                            power: "20W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "± (not specified)",
+                            noise: "Not specified",
+                            workingSpeed: "80-160pcs/min",
+                            material: "316 SS",
+                            hopperVolume: "40kg",
+                            weight: "25kg"
+                        },
+                        customSpecs: [
+                            { name: "Driven Type", value: "Electro-Pneumatic" },
+                            { name: "Nozzle", value: "Double" },
+                            { name: "Air Pressure", value: "0.4-0.6 MPa" },
+                            { name: "Material", value: "316 SS" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 15,
+                        name: "Manual Handheld Inkjet Printer",
+                        category: "printing",
+                        image: "img/machine/MANUAL HANDHELD INKJET PRINTER.jpg",
+                        video: "clip vids/inkjet-printer-demo.mp4",
+                        description: "Manual handheld inkjet printer for coding and marking on various surfaces with 300DPI resolution.",
+                        specs: {
+                            voltage: "16.8V",
+                            size: "295*260*170mm",
+                            power: "N/A",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "60m/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "3kg"
+                        },
+                        customSpecs: [
+                            { name: "Ink Type", value: "Solvent Ink" },
+                            { name: "Print Speed", value: "60m/min" },
+                            { name: "Resolution", value: "300DPI" },
+                            { name: "Print Dimension", value: "2-12.7mm" },
+                            { name: "Automatic Grade", value: "Automatic" },
+                            { name: "Ink Color", value: "Black" },
+                            { name: "Usage", value: "Aluminum, Jar, Bottles, Plastic, Glass, etc." },
+                            { name: "Printing Content", value: "Text, Number, Date, QR Code, Image" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 16,
+                        name: "Laboratory Viscometer",
+                        category: "testing",
+                        image: "img/machine/LABORATORY VISCOMETER.jpg",
+                        video: "clip vids/viscometer-demo.mp4",
+                        description: "Laboratory viscometer for measuring viscosity of liquids with high accuracy.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "95*130*155mm",
+                            power: "N/A",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "±3%",
+                            noise: "Not specified",
+                            workingSpeed: "6,12,30,60 rpm/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "2kg"
+                        },
+                        customSpecs: [
+                            { name: "Measurement Range", value: "10mPa.S-100,000mPa.S (1mpa.s=1cp)" },
+                            { name: "Measurement Error", value: "±3%" },
+                            { name: "Rotor Types", value: "#1, #2, #3, #4" },
+                            { name: "Rotor Velocity", value: "6, 12, 30, 60 rpm/min" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 17,
+                        name: "Industrial Pillow Pack Machine",
+                        category: "packaging",
+                        image: "img/machine/INDUSTRIAL PILLOW PACK MACHINE.jpg",
+                        video: "clip vids/pillow-pack-demo.mp4",
+                        description: "Industrial pillow pack machine for high-speed packaging with capacity of 50-230 pieces per minute.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "4020*6770*1450mm",
+                            power: "2.4KW",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "50-230pcs/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "450kg"
+                        },
+                        customSpecs: [
+                            { name: "Model", value: "350" },
+                            { name: "Film Width", value: "350mm max" },
+                            { name: "Bag Length", value: "65-330mm" },
+                            { name: "Bag Width", value: "30-160mm" },
+                            { name: "Height", value: "45mm max" },
+                            { name: "Film Roll Diameter", value: "320mm" },
+                            { name: "Packing Speed", value: "50-230pcs/min" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 18,
+                        name: "L-Bar Type Sealing Machine",
+                        category: "sealing",
+                        image: "img/machine/L-BAR TYPE SEALING MACHINE .jpg",
+                        video: "clip vids/l-bar-sealing-demo.mp4",
+                        description: "L-Bar type sealing machine for packaging with PVC, POD PP materials. Model 380L.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "750*600*360mm",
+                            power: "1KW",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "8-12m/min",
+                            material: "PVC, POD PP etc.",
+                            hopperVolume: "N/A",
+                            weight: "22kg"
+                        },
+                        customSpecs: [
+                            { name: "Model", value: "380L" },
+                            { name: "Speed", value: "8-12m/min" },
+                            { name: "Material", value: "PVC, POD PP etc." },
+                            { name: "Max Sealing Size", value: "500mm x 250mm" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 19,
+                        name: "Continuous Band Sealing Machine Horizontal Type",
+                        category: "sealing",
+                        image: "img/machine/CONTINUOUS BAND SEALING MACHINE HORIZONTAL TYPE  .jpg",
+                        video: "clip vids/band-sealing-horizontal-demo.mp4",
+                        description: "Horizontal continuous band sealing machine for bags, film, and pouches with high-speed operation.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "840*450*380mm",
+                            power: "20W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "85-100pcs/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "30kg"
+                        },
+                        customSpecs: [
+                            { name: "Packaging Type", value: "Bag, Film, Pouch" },
+                            { name: "Max Speed", value: "85-100pcs/min" },
+                            { name: "Automatic Grade", value: "Automatic" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 20,
+                        name: "Electromagnetic Induction Aluminum Sealing Machine LX6000",
+                        category: "sealing",
+                        image: "img/machine/ELECTROMAGNETIC INDUCTION  ALUMINUM SEALING MACHINE Lx6000.jpg",
+                        video: "clip vids/induction-sealing-demo.mp4",
+                        description: "Electromagnetic induction aluminum sealing machine for bottles with stainless steel body and adjustable speed.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "900*450*500mm",
+                            power: "2000W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "30-50 bottles/min",
+                            material: "Stainless Steel Body",
+                            hopperVolume: "N/A",
+                            weight: "28kg"
+                        },
+                        customSpecs: [
+                            { name: "Sealing Speed", value: "30-50 bottles/min" },
+                            { name: "Product Material", value: "Stainless Body" },
+                            { name: "Sealing Diameter", value: "35-85mm" },
+                            { name: "Bottle Height", value: "20-280mm" },
+                            { name: "Conveyor Speed", value: "0-12.5m/min" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 21,
+                        name: "Digital Liquid Filling Machine (Single Nozzle)",
+                        category: "filling",
+                        image: "img/machine/DIGITAL LIQUID FILLING MACHINE (SINGLE NOZZLE).jpg",
+                        video: "clip vids/digital-filling-single-demo.mp4",
+                        description: "Digital liquid filling machine with single nozzle for precise filling with ±0.5% accuracy.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "280*250*160mm",
+                            power: "30W",
+                            fillingRange: "3-3500ml",
+                            fillingAccuracy: "±0.5%",
+                            noise: "Not specified",
+                            workingSpeed: "Variable (time based)",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "5kg"
+                        },
+                        customSpecs: [
+                            { name: "Max Flow Rate", value: "3500ml/min" },
+                            { name: "Filling Range", value: "3-3500ml" },
+                            { name: "Error", value: "±0.5%" },
+                            { name: "Nozzle", value: "Single" },
+                            { name: "Time Range", value: "0.01s-999.9s" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 22,
+                        name: "Electric Labeling for Round Surface",
+                        category: "labeling",
+                        image: "img/machine/ELECTRIC LABELING FOR ROUND SURFACE.jpg",
+                        video: "clip vids/electric-round-labeling-demo.mp4",
+                        description: "Electric labeling machine designed specifically for round surfaces with adjustable speed and label size.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "650*345*450mm",
+                            power: "120W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "Not specified",
+                            noise: "Not specified",
+                            workingSpeed: "20-50 pcs/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "20kg"
+                        },
+                        customSpecs: [
+                            { name: "Speed", value: "20-50 pcs/min" },
+                            { name: "Bottles Diameter", value: "32-150mm" },
+                            { name: "Label Roll Diameter", value: "75-300mm" },
+                            { name: "Label Size", value: "Width: 26-150mm, Length: 25-180mm" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 23,
+                        name: "Continuous Band Sealing Machine Vertical Type",
+                        category: "sealing",
+                        image: "img/machine/CONTINUOUS BAND SEALING MACHINE VERTICAL TYPE.jpg",
+                        video: "clip vids/band-sealing-vertical-demo.mp4",
+                        description: "Vertical continuous band sealing machine for bags, film, and pouches with automatic operation.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "920*620*380mm",
+                            power: "20W",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "85-100pcs/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "30kg"
+                        },
+                        customSpecs: [
+                            { name: "Packaging Type", value: "Bag, Film, Pouch" },
+                            { name: "Max Speed", value: "85-100pcs/min" },
+                            { name: "Automatic Grade", value: "Automatic" },
+                            { name: "Max Conveyor Loading", value: "5kg" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 24,
+                        name: "Digital Liquid Filling Machine (Double Nozzle)",
+                        category: "filling",
+                        image: "img/machine/DIGITAL LIQUID FILLING MACHINE (DOUBLE NOZZLE).jpg",
+                        video: "clip vids/digital-filling-double-demo.mp4",
+                        description: "Digital liquid filling machine with double nozzle for high-speed precise filling operations.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "450*320*160mm",
+                            power: "30W",
+                            fillingRange: "3-3500ml",
+                            fillingAccuracy: "±0.5%",
+                            noise: "Not specified",
+                            workingSpeed: "Variable (time based)",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "7kg"
+                        },
+                        customSpecs: [
+                            { name: "Max Flow Rate", value: "3500ml/min" },
+                            { name: "Filling Range", value: "3-3500ml" },
+                            { name: "Error", value: "±0.5%" },
+                            { name: "Nozzle", value: "Double" },
+                            { name: "Time Range", value: "0.01s-999.9s" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 25,
+                        name: "Handheld Capping Machine",
+                        category: "capping",
+                        image: "img/machine/HANDHELD CAPPING MACHINE.jpg",
+                        video: "clip vids/handheld-capping-demo.mp4",
+                        description: "Portable handheld capping machine for screw caps with high production capacity.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "660*400*220mm",
+                            power: "Not specified",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "30-90/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "1.2kg"
+                        },
+                        customSpecs: [
+                            { name: "Screw Cap Diameter", value: "10-50mm" },
+                            { name: "Production Capacity", value: "30-90/min" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 26,
+                        name: "Induction Sealing Machine",
+                        category: "sealing",
+                        image: "img/machine/INDUCTION SEALING MACHINE.jpg",
+                        video: "clip vids/induction-sealer-demo.mp4",
+                        description: "Induction sealing machine with models DGYF-500A and DGYF-1000A for tamper-evident sealing.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "260*345*165mm",
+                            power: "1200W Input / 600W Output",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "Not specified",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "Not specified"
+                        },
+                        customSpecs: [
+                            { name: "Model", value: "DGYF-500A, DGYF-1000A" },
+                            { name: "Input Power", value: "1200W" },
+                            { name: "Work Frequency", value: "50Hz-80Hz" },
+                            { name: "Output Power", value: "600W" },
+                            { name: "Air Humidity", value: "90%PH (Non-condensing)" },
+                            { name: "Temperature", value: "10-40°C" },
+                            { name: "Sealing Diameter", value: "20-100mm, 70-130mm" },
+                            { name: "Protective Grade", value: "IP20" },
+                            { name: "Safety Standards", value: "GB15579.1995" },
+                            { name: "Counting Range", value: "0-9999" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 27,
+                        name: "Automatic Power Weighing Filling and Sealing Machine",
+                        category: "packaging",
+                        image: "img/machine/AUTOMATIC POWER WEIGHING FILLING AND SEALING MACHINE.jpg",
+                        video: "clip vids/weighing-filling-sealing-demo.mp4",
+                        description: "Automatic machine for weighing, filling, and sealing sachets with customizable size options.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "38*58*160mm",
+                            power: "Not specified",
+                            fillingRange: "Variable (weighing based)",
+                            fillingAccuracy: "Not specified",
+                            noise: "Not specified",
+                            workingSpeed: "10-30 sachet/min",
+                            material: "Various films",
+                            hopperVolume: "N/A",
+                            weight: "75kg"
+                        },
+                        customSpecs: [
+                            { name: "Type", value: "Weighing, Filling, and Sealing" },
+                            { name: "Filling Speed", value: "10-30 sachet/min" },
+                            { name: "Packing Sachet Size", value: "Width: 5-10cm, Length: 3-16cm (customizable)" },
+                            { name: "Material Coiled", value: "Plastic film, filter paper, alum foil, laminated film, non-woven fabrics" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 28,
+                        name: "A03 Pro Manual Filling Machine with Guide",
+                        category: "filling",
+                        image: "img/machine/A03 PRO MANUAL FILLING MACHINE WITH GUIDE.jpg",
+                        video: "clip vids/a03-pro-demo.mp4",
+                        description: "Professional manual filling machine with guide for precise liquid filling applications.",
+                        specs: {
+                            voltage: "N/A",
+                            size: "820*320*310mm",
+                            power: "No power required",
+                            fillingRange: "5-100ml & 10-100ml",
+                            fillingAccuracy: "+1%",
+                            noise: "Not specified",
+                            workingSpeed: "20-30 times/min",
+                            material: "SS304 (Stainless Steel 304)",
+                            hopperVolume: "10kg",
+                            weight: "9.5kg"
+                        },
+                        customSpecs: [
+                            { name: "Nozzle", value: "2 Free Nozzle 4mm & 8mm" },
+                            { name: "Material", value: "SS304" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    },
+                    {
+                        id: 29,
+                        name: "Automatic Capping Machine 4 Wheels",
+                        category: "capping",
+                        image: "img/machine/AUTOMATIC.jpg",
+                        video: "clip vids/auto-capping-4wheels-demo.mp4",
+                        description: "Automatic capping machine with 4 wheels for high-speed bottle capping operations.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "1000*700*900mm",
+                            power: "Not specified",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "15-20 bottles/min",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "81kg"
+                        },
+                        customSpecs: [
+                            { name: "Cap Diameter", value: "30-60mm" },
+                            { name: "Bottle Height", value: "40-200mm" },
+                            { name: "Bottle Diameter", value: "50-80mm" },
+                            { name: "Pressure", value: "0.4-0.6 MPa" },
+                            { name: "Speed", value: "15-20 bottles/min" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 30,
+                        name: "Manual Handheld Inkjet Printer",
+                        category: "printing",
+                        image: "img/machine/MANUAL HANDHELD INKJET PRINTER.jpg",
+                        video: "clip vids/handheld-inkjet-demo.mp4",
+                        description: "Manual handheld inkjet printer for coding and marking applications.",
+                        specs: {
+                            voltage: "Not specified",
+                            size: "Not specified",
+                            power: "Not specified",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "Not specified",
+                            material: "Not specified",
+                            hopperVolume: "N/A",
+                            weight: "Not specified"
+                        },
+                        customSpecs: [
+                            { name: "Note", value: "Specifications need to be updated from manufacturer" }
+                        ],
+                        warranty: "Check manufacturer warranty"
+                    },
+                    {
+                        id: 31,
+                        name: "Cone Mixer 304SS 100L",
+                        category: "mixing",
+                        image: "img/machine/Cone Mixer 304ss 100L.jpg",
+                        video: "clip vids/cone-mixer-demo.mp4",
+                        description: "Cone mixer made of 304 stainless steel with 100L capacity for mixing powders and granules.",
+                        specs: {
+                            voltage: "220V/50Hz",
+                            size: "1200*815*1200mm",
+                            power: "3KW",
+                            fillingRange: "N/A",
+                            fillingAccuracy: "N/A",
+                            noise: "Not specified",
+                            workingSpeed: "28 RPM (barrel), 95 RPM (blade)",
+                            material: "304 Stainless Steel",
+                            hopperVolume: "205L",
+                            weight: "130kg"
+                        },
+                        customSpecs: [
+                            { name: "Model", value: "JST-100L" },
+                            { name: "Barrel Size", value: "570*1000mm" },
+                            { name: "Tank Volume", value: "205L" },
+                            { name: "Inlet Size", value: "Check specifications" },
+                            { name: "Outlet Value", value: "108mm" },
+                            { name: "Barrel Speed", value: "28 RPM" },
+                            { name: "Blade Speed", value: "95 RPM" }
+                        ],
+                        warranty: "6 months service warranty"
+                    },
+                    {
+                        id: 32,
+                        name: "Automatic Liquid Filling Machine",
+                        category: "filling",
+                        image: "img/machine/AUTOMATIC LIQUID FILLING MACHINE.jpg",
+                        video: "clip vids/auto-liquid-filling-demo.mp4",
+                        description: "Automatic liquid filling machine with double head pneumatic system for high-speed filling operations.",
+                        specs: {
+                            voltage: "220V/60Hz",
+                            size: "Not specified",
+                            power: "Pneumatic",
+                            fillingRange: "Adjustable",
+                            fillingAccuracy: "High precision",
+                            noise: "Not specified",
+                            workingSpeed: "High speed",
+                            material: "Stainless Steel",
+                            hopperVolume: "Not specified",
+                            weight: "Not specified"
+                        },
+                        customSpecs: [
+                            { name: "Type", value: "Double Head Pneumatic" },
+                            { name: "Operation", value: "Automatic" },
+                            { name: "Application", value: "Liquid filling for various industries" }
+                        ],
+                        warranty: "6 Months Service Warranty"
+                    }
+                ];
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const productsGrid = document.getElementById('productsGrid');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const resultsCount = document.getElementById('resultsCount');
+            const productCountText = document.getElementById('productCountText');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const clearSearchBtn = document.getElementById('clearSearchBtn');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const sortFilter = document.getElementById('sortFilter');
+            const viewFilter = document.getElementById('viewFilter');
+            const adminBtn = document.getElementById('adminBtn');
+            
+            // Modal elements
+            const productModal = document.getElementById('productModal');
+            const modalProductName = document.getElementById('modalProductName');
+            const modalProductImage = document.getElementById('modalProductImage');
+            const modalProductCategory = document.getElementById('modalProductCategory');
+            const modalSpecsGrid = document.getElementById('modalSpecsGrid');
+            const modalWarranty = document.getElementById('modalWarranty');
+            const modalProductDescription = document.getElementById('modalProductDescription');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const contactBtn = document.getElementById('contactBtn');
+            const trialRunBtn = document.getElementById('trialRunBtn');
+            
+            // Video Modal elements
+            const videoModal = document.getElementById('videoModal');
+            const videoModalTitle = document.getElementById('videoModalTitle');
+            const videoModalProductName = document.getElementById('videoModalProductName');
+            const videoModalDescription = document.getElementById('videoModalDescription');
+            const trialRunVideo = document.getElementById('trialRunVideo');
+            const closeVideoModalBtn = document.getElementById('closeVideoModalBtn');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoError = document.getElementById('videoError');
+            const videoErrorMessage = document.getElementById('videoErrorMessage');
+            const videoContactBtn = document.getElementById('videoContactBtn');
+            
+            let products = loadProducts();
+            let filteredProducts = [...products];
+            let currentSearchTerm = '';
+            let currentCategory = 'all';
+            let currentSort = 'default';
+            let currentView = 'grid';
+            let currentProduct = null;
+            
+            // Initialize the products grid
+            renderProducts();
+            
+            // Admin button click
+            adminBtn.addEventListener('click', function() {
+                window.location.href = 'product-management.html';
+            });
+            
+            // Modal functionality
+            function openModal(product) {
+                // Set modal content
+                modalProductName.textContent = product.name;
+                modalProductImage.src = product.image;
+                modalProductImage.onerror = function() {
+                    this.src = 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                };
+                modalProductCategory.textContent = getCategoryLabel(product.category);
+                modalWarranty.textContent = product.warranty || 'No warranty information available';
+                modalProductDescription.textContent = product.description;
+                
+                // Store current product for video access
+                currentProduct = product;
+                
+                // Clear and populate specs
+                modalSpecsGrid.innerHTML = '';
+                if (product.specs) {
+                    const specs = product.specs;
+                    const specItems = [
+                        { label: 'Voltage', value: specs.voltage },
+                        { label: 'Size', value: specs.size },
+                        { label: 'Power', value: specs.power },
+                        { label: 'Filling Range', value: specs.fillingRange },
+                        { label: 'Filling Accuracy', value: specs.fillingAccuracy },
+                        { label: 'Noise Level', value: specs.noise },
+                        { label: 'Working Speed', value: specs.workingSpeed },
+                        { label: 'Material', value: specs.material },
+                        { label: 'Hopper Volume', value: specs.hopperVolume },
+                        { label: 'Weight', value: specs.weight }
+                    ];
+                    
+                    specItems.forEach(spec => {
+                        if (spec.value && spec.value !== 'N/A' && spec.value !== 'Not specified') {
+                            const specItem = document.createElement('div');
+                            specItem.className = 'spec-item';
+                            specItem.innerHTML = `
+                                <span class="spec-label">${spec.label}</span>
+                                <span class="spec-value">${spec.value}</span>
+                            `;
+                            modalSpecsGrid.appendChild(specItem);
+                        }
+                    });
+                }
+                
+                // Add custom specifications if available
+                if (product.customSpecs && product.customSpecs.length > 0) {
+                    product.customSpecs.forEach(spec => {
+                        if (spec.name && spec.value) {
+                            const specItem = document.createElement('div');
+                            specItem.className = 'spec-item';
+                            specItem.innerHTML = `
+                                <span class="spec-label">${spec.name}</span>
+                                <span class="spec-value">${spec.value}</span>
+                            `;
+                            modalSpecsGrid.appendChild(specItem);
+                        }
+                    });
+                }
+                
+                // Show or hide Trial Run button based on video availability
+                if (product.video && product.video.trim() !== '' && product.video !== '#') {
+                    trialRunBtn.style.display = 'flex';
+                    trialRunBtn.disabled = false;
+                    trialRunBtn.innerHTML = '<i class="fas fa-video"></i> Watch Trial Run';
+                } else {
+                    trialRunBtn.style.display = 'none';
+                    trialRunBtn.disabled = true;
+                }
+                
+                // Show modal
+                productModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModal() {
+                productModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Video Modal functionality
+            function openVideoModal(product) {
+                if (!product) {
+                    console.error('No product specified for video modal');
+                    return;
+                }
+                
+                videoModalTitle.textContent = `Trial Run: ${product.name}`;
+                videoModalProductName.textContent = product.name;
+                videoModalDescription.textContent = product.description || 'Watch this product in action during a trial run.';
+                
+                // Reset video player state
+                videoError.style.display = 'none';
+                trialRunVideo.style.display = 'block';
+                
+                // Clear any existing sources
+                while(trialRunVideo.firstChild) {
+                    trialRunVideo.removeChild(trialRunVideo.firstChild);
+                }
+                
+                // Set video source with error handling
+                if (product.video && product.video.trim() !== '' && product.video !== '#') {
+                    const source = document.createElement('source');
+                    source.src = product.video;
+                    source.type = 'video/mp4';
+                    trialRunVideo.appendChild(source);
+                    
+                    // Load the video
+                    trialRunVideo.load();
+                    
+                    // Set up error handling
+                    trialRunVideo.onerror = function() {
+                        console.error('Failed to load video:', product.video);
+                        showVideoError(product);
+                    };
+                    
+                    trialRunVideo.onloadeddata = function() {
+                        console.log('Video loaded successfully:', product.video);
+                        // Try to play the video (autoplay might be blocked by browser)
+                        const playPromise = this.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.warn('Autoplay prevented:', error);
+                                // Show play button instead
+                                this.controls = true;
+                            });
+                        }
+                    };
+                } else {
+                    // No video available
+                    showVideoError(product);
+                }
+                
+                // Show modal
+                videoModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function showVideoError(product) {
+                trialRunVideo.style.display = 'none';
+                videoError.style.display = 'flex';
+                videoErrorMessage.textContent = `The trial run video for "${product.name}" is currently unavailable. Please contact us directly for a live demonstration.`;
+            }
+            
+            function closeVideoModal() {
+                videoModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                
+                // Pause video and reset when modal closes
+                trialRunVideo.pause();
+                trialRunVideo.currentTime = 0;
+                
+                // Reset video error handlers
+                trialRunVideo.onerror = null;
+                trialRunVideo.onloadeddata = null;
+            }
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === productModal) {
+                    closeModal();
+                }
+                if (event.target === videoModal) {
+                    closeVideoModal();
+                }
+            });
+            
+            // Close modals with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    if (productModal.style.display === 'block') closeModal();
+                    if (videoModal.style.display === 'flex') closeVideoModal();
+                }
+            });
+            
+            // Event listeners for buttons
+            closeModalBtn.addEventListener('click', function() {
+                closeModal();
+                currentProduct = null;
+            });
+            
+            modalCloseBtn.addEventListener('click', function() {
+                closeModal();
+                currentProduct = null;
+            });
+            
+            closeVideoModalBtn.addEventListener('click', function() {
+                closeVideoModal();
+                currentProduct = null;
+            });
+            
+            contactBtn.addEventListener('click', function() {
+                window.location.href = 'Contact.html';
+            });
+            
+            videoContactBtn.addEventListener('click', function() {
+                window.location.href = 'Contact.html';
+            });
+            
+            // Trial Run button functionality
+            trialRunBtn.addEventListener('click', function() {
+                if (currentProduct) {
+                    closeModal();
+                    openVideoModal(currentProduct);
+                } else {
+                    alert('No product selected for trial run.');
+                }
+            });
+            
+            // Search functionality
+            function performSearch() {
+                currentSearchTerm = searchInput.value.toLowerCase().trim();
+                filterAndRenderProducts();
+            }
+            
+            searchBtn.addEventListener('click', performSearch);
+            
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Filter functionality
+            categoryFilter.addEventListener('change', function() {
+                currentCategory = this.value;
+                filterAndRenderProducts();
+            });
+            
+            sortFilter.addEventListener('change', function() {
+                currentSort = this.value;
+                filterAndRenderProducts();
+            });
+            
+            viewFilter.addEventListener('change', function() {
+                currentView = this.value;
+                applyViewMode();
+            });
+            
+            // Clear search button
+            clearSearchBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                currentSearchTerm = '';
+                currentCategory = 'all';
+                currentSort = 'default';
+                categoryFilter.value = 'all';
+                sortFilter.value = 'default';
+                filterAndRenderProducts();
+                searchInput.focus();
+            });
+            
+            // Filter and render products based on current filters
+            function filterAndRenderProducts() {
+                // Start with all products
+                filteredProducts = [...products];
+                
+                // Apply category filter
+                if (currentCategory !== 'all') {
+                    filteredProducts = filteredProducts.filter(product => 
+                        product.category === currentCategory
+                    );
+                }
+                
+                // Apply search filter
+                if (currentSearchTerm !== '') {
+                    filteredProducts = filteredProducts.filter(product => 
+                        product.name.toLowerCase().includes(currentSearchTerm) ||
+                        product.description.toLowerCase().includes(currentSearchTerm) ||
+                        product.category.toLowerCase().includes(currentSearchTerm)
+                    );
+                }
+                
+                // Apply sorting
+                if (currentSort === 'name-asc') {
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                } else if (currentSort === 'name-desc') {
+                    filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                }
+                
+                // Update UI
+                renderProducts();
+                updateStats();
+                applyViewMode();
+            }
+            
+            // Helper function to get category label
+            function getCategoryLabel(category) {
+                const labels = {
+                    'filling': 'Filling Machine',
+                    'sealing': 'Sealing Machine',
+                    'labeling': 'Labeling Machine',
+                    'mixing': 'Mixing Machine',
+                    'packaging': 'Packaging Machine',
+                    'capping': 'Capping Machine',
+                    'printing': 'Printing Machine',
+                    'heating': 'Heating Equipment',
+                    'testing': 'Testing Equipment'
+                };
+                return labels[category] || 'Industrial Machine';
+            }
+            
+            // Render products to the grid
+            function renderProducts() {
+                productsGrid.innerHTML = '';
+                
+                if (filteredProducts.length === 0) {
+                    noResultsMessage.style.display = 'block';
+                    return;
+                }
+                
+                noResultsMessage.style.display = 'none';
+                
+                filteredProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.dataset.id = product.id;
+                    productCard.dataset.category = product.category;
+                    
+                    // Highlight if it matches search term
+                    if (currentSearchTerm !== '' && 
+                        (product.name.toLowerCase().includes(currentSearchTerm) ||
+                         product.description.toLowerCase().includes(currentSearchTerm))) {
+                        productCard.classList.add('highlight');
+                    }
+                    
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" 
+                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">${getCategoryLabel(product.category)}</div>
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-actions">
+                                <span class="product-id">ID: ${product.id.toString().padStart(3, '0')}</span>
+                                <button class="view-details">View Details</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add click event to view details button
+                    const viewDetailsBtn = productCard.querySelector('.view-details');
+                    viewDetailsBtn.addEventListener('click', function() {
+                        openModal(product);
+                    });
+                    
+                    productsGrid.appendChild(productCard);
+                });
+            }
+            
+            // Update stats and counters
+            function updateStats() {
+                resultsCount.textContent = filteredProducts.length;
+                productCountText.textContent = `Displaying ${filteredProducts.length} premium industrial machine${filteredProducts.length !== 1 ? 's' : ''}`;
+                
+                // Update search input placeholder with suggestion if no results
+                if (filteredProducts.length === 0 && currentSearchTerm !== '') {
+                    searchInput.placeholder = "Try 'filling', 'sealing', or 'labeling'";
+                } else {
+                    searchInput.placeholder = "Search for machines (e.g., 'filling machine', 'labeling', 'sealing')";
+                }
+            }
+            
+            // Apply view mode (grid or list)
+            function applyViewMode() {
+                if (currentView === 'list') {
+                    productsGrid.style.gridTemplateColumns = '1fr';
+                    document.querySelectorAll('.product-card').forEach(card => {
+                        card.style.flexDirection = 'row';
+                        card.querySelector('.product-image').style.width = '200px';
+                        card.querySelector('.product-image').style.height = '200px';
+                        card.querySelector('.product-image').style.minHeight = 'auto';
+                        card.querySelector('.product-info').style.padding = '20px';
+                    });
+                } else {
+                    productsGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
+                    document.querySelectorAll('.product-card').forEach(card => {
+                        card.style.flexDirection = 'column';
+                        card.querySelector('.product-image').style.width = '100%';
+                        card.querySelector('.product-image').style.height = '250px';
+                        card.querySelector('.product-info').style.padding = '25px';
+                    });
+                }
+            }
+            
+            // Initialize stats
+            updateStats();
+            
+            // Listen for storage changes (when admin page updates products)
+            window.addEventListener('storage', function(event) {
+                if (event.key === STORAGE_KEY) {
+                    products = loadProducts();
+                    filterAndRenderProducts();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMPCorp</title>
+
+    <link rel="icon" href="Img/LogoIcon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        /* HEADER */
+        .site-header {
+            background: #0f215a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 20px;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 60px;
+        }
+
+        /* LOGO */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            height: 44px;
+        }
+
+        .nav-logo {
+            width: 100px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+            border-color: #e0423d;
+            box-shadow: 0 0 10px rgba(224, 66, 61, 0.7);
+        }
+
+        .nav-logo img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+        }
+
+        /* NAVIGATION */
+        .NavHeader {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 2px 0;
+        }
+
+        .nav-list li {
+            flex-shrink: 1;
+        }
+
+        .nav-list li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 6px 10px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border-radius: 5px;
+            white-space: nowrap;
+            position: relative;
+            line-height: 1.2;
+        }
+
+        /* ENHANCED HOVER EFFECT */
+        .nav-list li a:hover {
+            text-shadow: 0 0 10px #e0423d,
+                         0 0 10px #e0423d,
+                         0 0 10px #e0423d;
+            color: #fff;
+            border-radius: 4px;
+            transform: scale(1.1);
+            background: rgba(224, 66, 61, 0.15);
+            box-shadow: 0 0 15px rgba(224, 66, 61, 0.4);
+        }
+
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: auto;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            color: #e0423d;
+            transform: scale(1.1);
+            text-shadow: 0 0 10px #e0423d;
+        }
+
+        /* RESPONSIVE DESIGN */
+        /* Tablet (768px to 1024px) */
+        @media (max-width: 1024px) {
+            .site-header {
+                padding: 6px 15px;
+                min-height: 55px;
+            }
+            
+            .nav-list {
+                gap: 8px;
+            }
+            
+            .nav-list li a {
+                font-size: 15px;
+                padding: 5px 8px;
+            }
+            
+            .nav-logo {
+                width: 90px;
+                height: 45px;
+            }
+            
+            .logo-container {
+                height: 45px;
+            }
+        }
+
+        /* Tablet Portrait / Large Mobile (600px to 768px) */
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 5px 12px;
+                min-height: 50px;
+            }
+            
+            .nav-list {
+                gap: 6px;
+            }
+            
+            .nav-list li a {
+                font-size: 14px;
+                padding: 4px 7px;
+            }
+            
+            .nav-logo {
+                width: 80px;
+                height: 40px;
+            }
+            
+            .logo-container {
+                height: 40px;
+            }
+            
+            .nav-list li a i {
+                font-size: 13px;
+            }
+        }
+
+        /* Small Mobile (480px to 600px) */
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 4px 10px;
+                min-height: 48px;
+                gap: 8px;
+            }
+            
+            .nav-logo {
+                width: 70px;
+                height: 35px;
+            }
+            
+            .logo-container {
+                height: 35px;
+            }
+            
+            .NavHeader {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0f215a;
+                padding: 12px 15px;
+                z-index: 1000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            
+            .NavHeader.active {
+                display: block;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+            }
+            
+            .nav-list li {
+                width: 100%;
+            }
+            
+            .nav-list li a {
+                display: flex;
+                padding: 10px 12px;
+                font-size: 15px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                justify-content: flex-start;
+                gap: 10px;
+                transform: none !important;
+            }
+            
+            .nav-list li:last-child a {
+                border-bottom: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-list li a:hover {
+                text-shadow: 0 0 10px #e0423d,
+                             0 0 10px #e0423d,
+                             0 0 10px #e0423d;
+                background: rgba(224, 66, 61, 0.2);
+                padding-left: 20px;
+                transform: none !important;
+                box-shadow: 0 0 10px rgba(224, 66, 61, 0.3);
+            }
+        }
+
+        /* Extra Small Mobile (below 480px) */
+        @media (max-width: 480px) {
+            .site-header {
+                padding: 3px 8px;
+                min-height: 45px;
+            }
+            
+            .nav-logo {
+                width: 60px;
+                height: 30px;
+                border-width: 2px;
+            }
+            
+            .logo-container {
+                height: 30px;
+            }
+            
+            .menu-toggle {
+                font-size: 20px;
+            }
+            
+            .nav-list li a {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .nav-list li a i {
+                font-size: 13px;
+            }
+            
+            .nav-list li a:hover {
+                padding-left: 16px;
+            }
+        }
+
+        /* Landscape mode for mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .nav-list li a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            
+            .NavHeader {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+        }
+
+        /* High-resolution screens */
+        @media (min-width: 1400px) {
+            .site-header {
+                padding: 10px 40px;
+                min-height: 70px;
+            }
+            
+            .nav-list {
+                gap: 15px;
+            }
+            
+            .nav-list li a {
+                font-size: 18px;
+                padding: 8px 12px;
+            }
+            
+            .nav-logo {
+                width: 120px;
+                height: 60px;
+            }
+            
+            .logo-container {
+                height: 60px;
+            }
+            
+            .nav-list li a:hover {
+                transform: scale(1.15);
+                text-shadow: 0 0 12px #e0423d,
+                             0 0 12px #e0423d,
+                             0 0 12px #e0423d;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="logo-container">
+        <div class="nav-logo">
+            <img src="logo1.png" alt="SMPCorp Logo">
+        </div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav class="NavHeader" id="mainNav">
+        <ul class="nav-list">
+            <li><a href="Home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+            <li><a href="Trial Run.html"><i class="fas fa-cogs"></i> <span>Trial Run</span></a></li>
+            <li><a href="Products.html"><i class="fas fa-industry"></i> <span>Products</span></a></li>
+            <li><a href="About.html"><i class="fas fa-info-circle"></i> <span>About</span></a></li>
+            <li><a href="Contact.html"><i class="fas fa-phone"></i> <span>Contact</span></a></li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+    // Mobile menu toggle functionality
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuIcon = menuToggle.querySelector('i');
+    
+    menuToggle.addEventListener('click', function() {
+        mainNav.classList.toggle('active');
+        
+        // Toggle between hamburger and close icon
+        if (mainNav.classList.contains('active')) {
+            menuIcon.classList.remove('fa-bars');
+            menuIcon.classList.add('fa-times');
+        } else {
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+        }
+    });
+    
+    // Close menu when clicking on a link (for mobile)
+    const navLinks = document.querySelectorAll('.nav-list li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 600) {
+                mainNav.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+    });
+    
+    // Close menu when clicking outside (for mobile)
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 600) {
+            const isClickInsideHeader = event.target.closest('.site-header');
+            
+            if (!isClickInsideHeader && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 600) {
+            mainNav.classList.remove('active');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management SMPCorp - Admin</title>
+    <link rel="icon" href="Img/LogoIcon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        /* HEADER - FROM TEMPLATE */
+        .site-header {
+            background: #0f215a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 20px;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 10px;
+            min-height: 60px;
+        }
+
+        /* LOGO */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            height: 44px;
+        }
+
+        .nav-logo {
+            width: 100px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+            border-color: #e0423d;
+            box-shadow: 0 0 10px rgba(224, 66, 61, 0.7);
+        }
+
+        .nav-logo img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+        }
+
+        /* NAVIGATION */
+        .NavHeader {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 0;
+            position: relative;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 2px 0;
+        }
+
+        .nav-list li {
+            flex-shrink: 1;
+        }
+
+        .nav-list li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 6px 10px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border-radius: 5px;
+            white-space: nowrap;
+            position: relative;
+            line-height: 1.2;
+        }
+
+        /* ENHANCED HOVER EFFECT */
+        .nav-list li a:hover {
+            text-shadow: 0 0 10px #e0423d,
+                         0 0 10px #e0423d,
+                         0 0 10px #e0423d;
+            color: #fff;
+            border-radius: 4px;
+            transform: scale(1.1);
+            background: rgba(224, 66, 61, 0.15);
+            box-shadow: 0 0 15px rgba(224, 66, 61, 0.4);
+        }
+
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: auto;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            color: #e0423d;
+            transform: scale(1.1);
+            text-shadow: 0 0 10px #e0423d;
+        }
+
+        /* Admin Controls in Header */
+        .admin-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-info {
+            color: white;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-name {
+            font-weight: bold;
+            color: #e0423d;
+        }
+
+        .logout-btn {
+            background: #e0423d;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 66, 61, 0.3);
+        }
+
+        /* Back to Products Button */
+        .back-to-products {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .back-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        /* RESPONSIVE DESIGN - FROM TEMPLATE */
+        @media (max-width: 1024px) {
+            .site-header {
+                padding: 6px 15px;
+                min-height: 55px;
+            }
+            
+            .nav-list {
+                gap: 8px;
+            }
+            
+            .nav-list li a {
+                font-size: 15px;
+                padding: 5px 8px;
+            }
+            
+            .nav-logo {
+                width: 90px;
+                height: 45px;
+            }
+            
+            .logo-container {
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 5px 12px;
+                min-height: 50px;
+            }
+            
+            .nav-list {
+                gap: 6px;
+            }
+            
+            .nav-list li a {
+                font-size: 14px;
+                padding: 4px 7px;
+            }
+            
+            .nav-logo {
+                width: 80px;
+                height: 40px;
+            }
+            
+            .logo-container {
+                height: 40px;
+            }
+            
+            .nav-list li a i {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 4px 10px;
+                min-height: 48px;
+                gap: 8px;
+            }
+            
+            .nav-logo {
+                width: 70px;
+                height: 35px;
+            }
+            
+            .logo-container {
+                height: 35px;
+            }
+            
+            .NavHeader {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0f215a;
+                padding: 12px 15px;
+                z-index: 1000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            
+            .NavHeader.active {
+                display: block;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+            }
+            
+            .nav-list li {
+                width: 100%;
+            }
+            
+            .nav-list li a {
+                display: flex;
+                padding: 10px 12px;
+                font-size: 15px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                justify-content: flex-start;
+                gap: 10px;
+                transform: none !important;
+            }
+            
+            .nav-list li:last-child a {
+                border-bottom: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-list li a:hover {
+                text-shadow: 0 0 10px #e0423d,
+                             0 0 10px #e0423d,
+                             0 0 10px #e0423d;
+                background: rgba(224, 66, 61, 0.2);
+                padding-left: 20px;
+                transform: none !important;
+                box-shadow: 0 0 10px rgba(224, 66, 61, 0.3);
+            }
+            
+            .back-to-products {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin: 10px auto;
+                text-align: center;
+                width: 100%;
+            }
+
+            .admin-controls {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+@media (max-width: 480px) {
+    .login-logo img {
+        width: 200px; /* Larger for mobile */
+        height: 200px; /* Larger for mobile */
+    }
+}
+            .nav-logo {
+                width: 60px;
+                height: 30px;
+                border-width: 2px;
+            }
+            
+            .logo-container {
+                height: 30px;
+            }
+            
+            .menu-toggle {
+                font-size: 20px;
+            }
+            
+            .nav-list li a {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .nav-list li a i {
+                font-size: 13px;
+            }
+            
+            .nav-list li a:hover {
+                padding-left: 16px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .site-header {
+                padding: 10px 40px;
+                min-height: 70px;
+            }
+            
+            .nav-list {
+                gap: 15px;
+            }
+            
+            .nav-list li a {
+                font-size: 18px;
+                padding: 8px 12px;
+            }
+            
+            .nav-logo {
+                width: 120px;
+                height: 60px;
+            }
+            
+            .logo-container {
+                height: 60px;
+            }
+            
+            .nav-list li a:hover {
+                transform: scale(1.15);
+                text-shadow: 0 0 12px #e0423d,
+                             0 0 12px #e0423d,
+                             0 0 12px #e0423d;
+            }
+        }
+
+        /* LOGIN PAGE STYLES */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f215a 0%, #1a3a8f 100%);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+.login-logo img {
+    width: 250px; /* Extra large */
+    height: 250px; /* Extra large */
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+        .login-logo h2 {
+            color: #0f215a;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .login-logo p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #0f215a;
+            box-shadow: 0 0 0 3px rgba(15, 33, 90, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #0f215a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #091842;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(15, 33, 90, 0.3);
+        }
+
+        .login-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+            border: 1px solid #f5c6cb;
+        }
+
+        .login-error.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .forgot-password {
+            color: #0f215a;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #e0423d;
+            text-decoration: underline;
+        }
+
+        /* MAIN (flex-grow makes it stay in the middle) */
+        .site-content {
+            flex: 1;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: none; /* Hidden until login */
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 10px;
+            margin: 20px 0 30px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: #0f215a;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Management Controls */
+        .management-controls {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 1px solid #e1e5eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .search-box {
+            display: flex;
+            flex: 1;
+            background: #f8f9fa;
+            border-radius: 50px;
+            padding: 5px;
+            border: 2px solid #e1e5eb;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:hover {
+            border-color: #0f215a;
+            box-shadow: 0 5px 15px rgba(15, 33, 90, 0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .search-box button {
+            background: #0f215a;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-box button:hover {
+            background: #e0423d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 66, 61, 0.3);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: #0f215a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #091842;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(15, 33, 90, 0.3);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-danger {
+            background: #e0423d;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 66, 61, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        /* Products Section */
+        .Products {
+            margin: 30px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #0f215a;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e0423d;
+        }
+
+        .product-count {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e1e5eb;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: #0f215a;
+        }
+
+        .product-image {
+            height: 220px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            position: relative;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            display: inline-block;
+            background: #0f215a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        .product-name {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            gap: 10px;
+        }
+
+        .product-id {
+            color: #888;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .action-buttons-small {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-edit {
+            background: #0f215a;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #091842;
+            transform: translateY(-2px);
+        }
+
+        .btn-delete {
+            background: #e0423d;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-view {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin: 30px 0;
+            border: 2px dashed #e1e5eb;
+        }
+
+        .no-results-icon {
+            font-size: 3.5rem;
+            color: #e0423d;
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            color: #0f215a;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .no-results p {
+            color: #666;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* Product Form Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 30px auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: #0f215a;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #e0423d;
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #0f215a;
+            box-shadow: 0 0 0 3px rgba(15, 33, 90, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Custom Specifications */
+        .custom-specs-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e1e5eb;
+        }
+
+        .custom-specs-section h3 {
+            color: #0f215a;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .custom-spec-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .custom-spec-item input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e1e5eb;
+            border-radius: 5px;
+        }
+
+        .remove-spec {
+            background: #e0423d;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-spec:hover {
+            background: #c0392b;
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .specs-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e1e5eb;
+        }
+
+        .specs-section h3 {
+            color: #0f215a;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5eb;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-submit {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Confirmation Modal */
+        .confirmation-modal .modal-content {
+            max-width: 500px;
+        }
+
+        .confirmation-body {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: #e0423d;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-body h3 {
+            color: #0f215a;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .confirmation-body p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* FOOTER */
+        .site-footer {
+            background: #0f215a;
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+            display: none; /* Hidden until login */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            font-size: 1rem;
+            margin: 10px 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #e0423d;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .management-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                min-width: 100%;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 30px 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .page-header p {
+                font-size: 0.95rem;
+            }
+            
+            .management-controls {
+                padding: 20px 15px;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .action-buttons-small {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .confirmation-actions {
+                flex-direction: column;
+            }
+            
+            .custom-spec-item {
+                flex-direction: column;
+            }
+
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .login-logo img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- LOGIN PAGE (Initial view) -->
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="Logo1.png" alt="SMPCorp Logo" onerror="this.src='https://via.placeholder.com/150?text=SMPCorp'">
+                <h2>Admin Login</h2>
+                <p>Product Management System</p>
+            </div>
+            
+            <div class="login-error" id="loginError">
+                <i class="fas fa-exclamation-circle"></i> Invalid username or password
+            </div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter admin username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password">
+                </div>
+                
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password" id="forgotPassword">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD (Hidden until login) -->
+    <div id="adminDashboard" style="display: none;">
+        <!-- UPDATED HEADER WITH RESPONSIVE TEMPLATE -->
+        <header class="site-header">
+            <div class="logo-container">
+                <div class="nav-logo">
+                    <img src="Logo1.png" alt="SMPCorp Logo">
+                </div>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="NavHeader" id="mainNav">
+                <ul class="nav-list">
+                    <li><a href="Home.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="Trial Run.html"><i class="fas fa-cogs"></i> <span>Trial Run</span></a></li>
+                    <li><a href="Products.html"><i class="fas fa-industry"></i> <span>Products</span></a></li>
+                    <li><a href="About.html"><i class="fas fa-info-circle"></i> <span>About</span></a></li>
+                    <li><a href="Contact.html"><i class="fas fa-phone"></i> <span>Contact</span></a></li>
+                </ul>
+            </nav>
+
+            <!-- Admin Controls -->
+            <div class="admin-controls">
+                <div class="admin-info">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Welcome, <span class="admin-name" id="adminName">Administrator</span></span>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="site-content">
+            <div class="page-header">
+                <h1>Product Management</h1>
+                <p>Manage your industrial machines catalog. Add, edit, or delete products as needed.</p>
+                <div style="margin-top: 15px;">
+                    <button class="back-btn" id="backBtn">
+                        <i class="fas fa-arrow-left"></i> Back to Products
+                    </button>
+                </div>
+            </div>
+            
+            <!-- MANAGEMENT CONTROLS -->
+            <div class="management-controls">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search products...">
+                        <button id="searchBtn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    <span id="resultsCount" class="search-results-count">0 products</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="filterBtn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-success" id="addProductBtn">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+            </div>
+            
+            <!-- PRODUCTS GRID -->
+            <div class="Products">
+                <h2 class="section-title">Products Catalog</h2>
+                <div class="product-count" id="productCountText">Total: 0 products</div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Product cards will be generated by JavaScript -->
+                </div>
+                
+                <!-- No results message -->
+                <div class="no-results" id="noResultsMessage" style="display: none;">
+                    <div class="no-results-icon">
+                        <i class="fas fa-search-minus"></i>
+                    </div>
+                    <h3>No Products Found</h3>
+                    <p>No products match your search criteria. Try different keywords or add a new product.</p>
+                    <button class="btn btn-success" id="addNewBtn">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>&copy; 2023 SMPCorp Industrial Machines. All rights reserved.</p>
+                <p>sophiatradinginc@gmail.com | +1 (555) 123-4567</p>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="support.html">Technical Support</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- PRODUCT FORM MODAL (Add/Edit) -->
+    <div class="modal" id="productFormModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Product</h2>
+                <button class="close-modal" id="closeFormModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Category *</label>
+                            <select id="productCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="filling">Filling Machines</option>
+                                <option value="sealing">Sealing Machines</option>
+                                <option value="labeling">Labeling Machines</option>
+                                <option value="mixing">Mixing Machines</option>
+                                <option value="packaging">Packaging Machines</option>
+                                <option value="capping">Capping Machines</option>
+                                <option value="printing">Printing Machines</option>
+                                <option value="heating">Heating Equipment</option>
+                                <option value="testing">Testing Equipment</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productImage">Image URL</label>
+                            <input type="text" id="productImage" class="form-control" 
+                                   placeholder="e.g., img/machine/product.jpg">
+                            <small class="form-text">Displayed in Products page</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="productVideo">Video URL</label>
+                            <input type="text" id="productVideo" class="form-control" 
+                                   placeholder="e.g., clip vids/CAPPING MACHINE - Copy.mp4">
+                            <small class="form-text">Displayed in Trial Run page</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription">Description *</label>
+                        <textarea id="productDescription" class="form-control" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="specs-section">
+                        <h3>Standard Specifications</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="specVoltage">Voltage</label>
+                                <input type="text" id="specVoltage" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="specSize">Size</label>
+                                <input type="text" id="specSize" class="form-control" placeholder="e.g., 820*320*310mm">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="specPower">Power</label>
+                                <input type="text" id="specPower" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="specFillingRange">Filling Range</label>
+                                <input type="text" id="specFillingRange" class="form-control" placeholder="e.g., 5-100ml & 10-100ml">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="specAccuracy">Filling Accuracy</label>
+                                <input type="text" id="specAccuracy" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="specNoise">Noise</label>
+                                <input type="text" id="specNoise" class="form-control" placeholder="e.g., 2 Free Nozzle 4mm & 8mm">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="specSpeed">Working Speed</label>
+                                <input type="text" id="specSpeed" class="form-control" placeholder="e.g., 20-30 times/min">
+                            </div>
+                            <div class="form-group">
+                                <label for="specMaterial">Material</label>
+                                <input type="text" id="specMaterial" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="specHopper">Hopper Volume</label>
+                                <input type="text" id="specHopper" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="specWeight">Weight</label>
+                                <input type="text" id="specWeight" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Specifications Section -->
+                    <div class="custom-specs-section">
+                        <h3><i class="fas fa-plus"></i> Custom Specifications</h3>
+                        <div id="customSpecsContainer">
+                            <!-- Custom specs will be added here dynamically -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="addCustomSpecBtn">
+                            <i class="fas fa-plus"></i> Add Custom Specification
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productWarranty">Warranty</label>
+                        <input type="text" id="productWarranty" class="form-control" placeholder="e.g., 6 Months Service Warranty">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-cancel" id="cancelFormBtn">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-save"></i> Save Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL (Delete) -->
+    <div class="modal confirmation-modal" id="confirmationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Deletion</h2>
+                <button class="close-modal" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="confirmation-body">
+                <div class="confirmation-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Delete Product</h3>
+                <p id="confirmMessage">Are you sure you want to delete this product? This action cannot be undone.</p>
+                <div class="confirmation-actions">
+                    <button class="btn btn-cancel" id="cancelDeleteBtn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-danger" id="confirmDeleteBtn">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== LOGIN SYSTEM ====================
+        // Admin credentials (in a real app, these would be stored on a server)
+        const ADMIN_CREDENTIALS = {
+            username: "admin",
+            password: "SMPCorp2023!"
+        };
+
+        // Session management
+        const SESSION_KEY = 'smpcorp_admin_session';
+        
+        // Check if user is already logged in
+        function checkLoginStatus() {
+            const session = localStorage.getItem(SESSION_KEY);
+            if (session) {
+                const sessionData = JSON.parse(session);
+                // Check if session is still valid (24 hours)
+                if (Date.now() - sessionData.timestamp < 24 * 60 * 60 * 1000) {
+                    return sessionData;
+                } else {
+                    // Session expired
+                    localStorage.removeItem(SESSION_KEY);
+                }
+            }
+            return null;
+        }
+
+        // Show login page
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('adminDashboard').style.display = 'none';
+        }
+
+        // Show admin dashboard
+        function showAdminDashboard(username) {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            document.getElementById('adminName').textContent = username;
+            
+            // Show main content and footer
+            document.querySelector('.site-content').style.display = 'block';
+            document.querySelector('.site-footer').style.display = 'block';
+        }
+
+        // Handle login
+        function handleLogin(username, password, rememberMe = false) {
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                // Create session
+                const sessionData = {
+                    username: username,
+                    timestamp: Date.now(),
+                    rememberMe: rememberMe
+                };
+                localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+                
+                // Show success message and transition to dashboard
+                showAdminDashboard(username);
+                return true;
+            }
+            return false;
+        }
+
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem(SESSION_KEY);
+            showLoginPage();
+            // Clear any form data
+            document.getElementById('loginForm').reset();
+        }
+
+        // Initialize login system
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const session = checkLoginStatus();
+            if (session) {
+                showAdminDashboard(session.username);
+            } else {
+                showLoginPage();
+            }
+
+            // Login form submission
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+                const loginError = document.getElementById('loginError');
+                
+                // Clear previous error
+                loginError.classList.remove('show');
+                
+                // Attempt login
+                if (handleLogin(username, password, rememberMe)) {
+                    // Login successful
+                    console.log('Login successful');
+                } else {
+                    // Login failed
+                    loginError.classList.add('show');
+                    // Shake animation on inputs
+                    document.getElementById('username').style.animation = 'shake 0.5s ease';
+                    document.getElementById('password').style.animation = 'shake 0.5s ease';
+                    
+                    setTimeout(() => {
+                        document.getElementById('username').style.animation = '';
+                        document.getElementById('password').style.animation = '';
+                    }, 500);
+                    
+                    // Clear password field
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
+                }
+            });
+
+            // Forgot password link
+            document.getElementById('forgotPassword').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Please contact system administrator at sophiatradinginc@gmail.com to reset your password.');
+            });
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+            // ==================== PRODUCT MANAGEMENT ====================
+            // Mobile menu toggle functionality from template
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.getElementById('mainNav');
+            const menuIcon = menuToggle.querySelector('i');
+            
+            menuToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                
+                // Toggle between hamburger and close icon
+                if (mainNav.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                } else {
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+            
+            // Close menu when clicking on a link (for mobile)
+            const navLinks = document.querySelectorAll('.nav-list li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 600) {
+                        mainNav.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                });
+            });
+            
+            // Close menu when clicking outside (for mobile)
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 600) {
+                    const isClickInsideHeader = event.target.closest('.site-header');
+                    
+                    if (!isClickInsideHeader && mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 600) {
+                    mainNav.classList.remove('active');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+
+            // Shared Data Storage - MUST match Products.html
+            const STORAGE_KEY = 'smpcorp_products';
+            
+            // Load products from localStorage OR get from Products.html default
+            function loadProducts() {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    return JSON.parse(saved);
+                } else {
+                    // Load from Products.html default data (same as Products.html)
+                    return getDefaultProducts();
+                }
+            }
+            
+            // Get default products (same as Products.html)
+            function getDefaultProducts() {
+                // ... [Keep all the existing product data from the original code] ...
+                // This is the same as in your original code, truncated for brevity
+                return [
+                    {
+                        id: 1,
+                        name: "Manual Filling Machine with Guide",
+                        category: "filling",
+                        image: "img/machine/A03 PRO MANUAL FILLING MACHINE WITH GUIDE.jpg",
+                        video: "clip vids/Manual Handheld Inkjet Printer & Solvent Ink (4) - Copy.mp4",
+                        description: "Precision manual filling machine with guide for accurate filling of liquids, creams, and pastes. Ideal for small to medium production lines.",
+                        specs: {
+                            voltage: "110V/220V",
+                            size: "820*320*310mm",
+                            power: "500W",
+                            fillingRange: "5-100ml & 10-100ml",
+                            fillingAccuracy: "±0.5%",
+                            noise: "<65 dB",
+                            workingSpeed: "20-30 times/min",
+                            material: "Stainless Steel 304",
+                            hopperVolume: "10L",
+                            weight: "9.8kg"
+                        },
+                        customSpecs: [
+                            { name: "Production Rate", value: "30-40 bottles/hour" },
+                            { name: "Air Pressure", value: "0.5-0.7 MPa" },
+                            { name: "Accuracy", value: "±0.5%" },
+                            { name: "Nozzle Material", value: "Food Grade Stainless Steel" }
+                        ],
+                        warranty: "12 Months Service Warranty with 6 months free maintenance"
+                    },
+                    // ... [Rest of the products] ...
+                ];
+            }
+            
+            // Save products to localStorage
+            function saveProducts(products) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+                // Trigger storage event for other tabs (like Products.html)
+                window.dispatchEvent(new Event('storage'));
+            }
+
+            // DOM Elements for product management
+            const productsGrid = document.getElementById('productsGrid');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const resultsCount = document.getElementById('resultsCount');
+            const productCountText = document.getElementById('productCountText');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const addProductBtn = document.getElementById('addProductBtn');
+            const addNewBtn = document.getElementById('addNewBtn');
+            const backBtn = document.getElementById('backBtn');
+            const addCustomSpecBtn = document.getElementById('addCustomSpecBtn');
+            const customSpecsContainer = document.getElementById('customSpecsContainer');
+            
+            // Modal elements
+            const productFormModal = document.getElementById('productFormModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const closeFormModal = document.getElementById('closeFormModal');
+            const cancelFormBtn = document.getElementById('cancelFormBtn');
+            const productForm = document.getElementById('productForm');
+            
+            const confirmationModal = document.getElementById('confirmationModal');
+            const closeConfirmModal = document.getElementById('closeConfirmModal');
+            const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            const confirmMessage = document.getElementById('confirmMessage');
+            
+            // Form fields
+            const productIdField = document.getElementById('productId');
+            const productNameField = document.getElementById('productName');
+            const productCategoryField = document.getElementById('productCategory');
+            const productImageField = document.getElementById('productImage');
+            const productVideoField = document.getElementById('productVideo');
+            const productDescriptionField = document.getElementById('productDescription');
+            const specVoltageField = document.getElementById('specVoltage');
+            const specSizeField = document.getElementById('specSize');
+            const specPowerField = document.getElementById('specPower');
+            const specFillingRangeField = document.getElementById('specFillingRange');
+            const specAccuracyField = document.getElementById('specAccuracy');
+            const specNoiseField = document.getElementById('specNoise');
+            const specSpeedField = document.getElementById('specSpeed');
+            const specMaterialField = document.getElementById('specMaterial');
+            const specHopperField = document.getElementById('specHopper');
+            const specWeightField = document.getElementById('specWeight');
+            const productWarrantyField = document.getElementById('productWarranty');
+            
+            let products = loadProducts();
+            let filteredProducts = [...products];
+            let currentSearchTerm = '';
+            let productToDelete = null;
+            let customSpecs = [];
+            
+            // Generate unique ID based on existing products
+            let currentId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+            
+            // Initialize the products grid (only if admin dashboard is shown)
+            if (session) {
+                renderProducts();
+            }
+            
+            // Back button click
+            backBtn.addEventListener('click', function() {
+                window.location.href = 'Products.html';
+            });
+            
+            // Modal functions
+            function openModal(modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModal(modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Open Add Product Modal
+            function openAddProductModal() {
+                modalTitle.textContent = 'Add New Product';
+                productForm.reset();
+                productIdField.value = '';
+                customSpecs = [];
+                renderCustomSpecs();
+                openModal(productFormModal);
+            }
+            
+            // Open Edit Product Modal
+            function openEditProductModal(product) {
+                modalTitle.textContent = 'Edit Product';
+                productIdField.value = product.id;
+                productNameField.value = product.name;
+                productCategoryField.value = product.category;
+                productImageField.value = product.image || '';
+                productVideoField.value = product.video || '';
+                productDescriptionField.value = product.description;
+                productWarrantyField.value = product.warranty || '';
+                
+                // Fill specs
+                const specs = product.specs || {};
+                specVoltageField.value = specs.voltage || '';
+                specSizeField.value = specs.size || '';
+                specPowerField.value = specs.power || '';
+                specFillingRangeField.value = specs.fillingRange || '';
+                specAccuracyField.value = specs.fillingAccuracy || '';
+                specNoiseField.value = specs.noise || '';
+                specSpeedField.value = specs.workingSpeed || '';
+                specMaterialField.value = specs.material || '';
+                specHopperField.value = specs.hopperVolume || '';
+                specWeightField.value = specs.weight || '';
+                
+                // Fill custom specs
+                customSpecs = product.customSpecs || [];
+                renderCustomSpecs();
+                
+                openModal(productFormModal);
+            }
+            
+            // Open Delete Confirmation Modal
+            function openDeleteConfirmationModal(product) {
+                productToDelete = product;
+                confirmMessage.textContent = `Are you sure you want to delete "${product.name}"? This action cannot be undone.`;
+                openModal(confirmationModal);
+            }
+            
+            // Custom Specifications Functions
+            function addCustomSpecField(name = '', value = '') {
+                customSpecs.push({ name, value });
+                renderCustomSpecs();
+            }
+            
+            function removeCustomSpec(index) {
+                customSpecs.splice(index, 1);
+                renderCustomSpecs();
+            }
+            
+            function renderCustomSpecs() {
+                customSpecsContainer.innerHTML = '';
+                
+                customSpecs.forEach((spec, index) => {
+                    const specDiv = document.createElement('div');
+                    specDiv.className = 'custom-spec-item';
+                    specDiv.innerHTML = `
+                        <input type="text" class="form-control custom-spec-name" 
+                               placeholder="Specification Name" 
+                               value="${spec.name}">
+                        <input type="text" class="form-control custom-spec-value" 
+                               placeholder="Value" 
+                               value="${spec.value}">
+                        <button type="button" class="remove-spec" data-index="${index}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    
+                    const removeBtn = specDiv.querySelector('.remove-spec');
+                    removeBtn.addEventListener('click', function() {
+                        removeCustomSpec(index);
+                    });
+                    
+                    const nameInput = specDiv.querySelector('.custom-spec-name');
+                    const valueInput = specDiv.querySelector('.custom-spec-value');
+                    
+                    nameInput.addEventListener('input', function() {
+                        customSpecs[index].name = this.value;
+                    });
+                    
+                    valueInput.addEventListener('input', function() {
+                        customSpecs[index].value = this.value;
+                    });
+                    
+                    customSpecsContainer.appendChild(specDiv);
+                });
+            }
+            
+            // Add Custom Spec Button
+            addCustomSpecBtn.addEventListener('click', function() {
+                addCustomSpecField('', '');
+            });
+            
+            // Event Listeners for Modals
+            closeFormModal.addEventListener('click', () => closeModal(productFormModal));
+            cancelFormBtn.addEventListener('click', () => closeModal(productFormModal));
+            
+            closeConfirmModal.addEventListener('click', () => closeModal(confirmationModal));
+            cancelDeleteBtn.addEventListener('click', () => closeModal(confirmationModal));
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === productFormModal) closeModal(productFormModal);
+                if (event.target === confirmationModal) closeModal(confirmationModal);
+            });
+            
+            // Close modals with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    if (productFormModal.style.display === 'block') closeModal(productFormModal);
+                    if (confirmationModal.style.display === 'block') closeModal(confirmationModal);
+                }
+            });
+            
+            // Button event listeners
+            addProductBtn.addEventListener('click', openAddProductModal);
+            addNewBtn.addEventListener('click', openAddProductModal);
+            
+            // Search functionality
+            function performSearch() {
+                currentSearchTerm = searchInput.value.toLowerCase().trim();
+                filterAndRenderProducts();
+            }
+            
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Form submission
+            productForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                saveProduct();
+            });
+            
+            // Delete confirmation
+            confirmDeleteBtn.addEventListener('click', function() {
+                if (productToDelete) {
+                    deleteProduct(productToDelete.id);
+                    closeModal(confirmationModal);
+                    productToDelete = null;
+                }
+            });
+            
+            // Helper functions
+            function getCategoryLabel(category) {
+                const labels = {
+                    'filling': 'Filling Machine',
+                    'sealing': 'Sealing Machine',
+                    'labeling': 'Labeling Machine',
+                    'mixing': 'Mixing Machine',
+                    'packaging': 'Packaging Machine',
+                    'capping': 'Capping Machine',
+                    'printing': 'Printing Machine',
+                    'heating': 'Heating Equipment',
+                    'testing': 'Testing Equipment'
+                };
+                return labels[category] || 'Industrial Machine';
+            }
+            
+            // Filter and render products
+            function filterAndRenderProducts() {
+                filteredProducts = [...products];
+                
+                if (currentSearchTerm !== '') {
+                    filteredProducts = filteredProducts.filter(product => 
+                        product.name.toLowerCase().includes(currentSearchTerm) ||
+                        product.description.toLowerCase().includes(currentSearchTerm) ||
+                        product.category.toLowerCase().includes(currentSearchTerm)
+                    );
+                }
+                
+                renderProducts();
+                updateStats();
+            }
+            
+            // Render products to grid
+            function renderProducts() {
+                productsGrid.innerHTML = '';
+                
+                if (filteredProducts.length === 0) {
+                    noResultsMessage.style.display = 'block';
+                    return;
+                }
+                
+                noResultsMessage.style.display = 'none';
+                
+                filteredProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.dataset.id = product.id;
+                    
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" onerror="this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">${getCategoryLabel(product.category)}</div>
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-description">${product.description}</p>
+                            <div class="product-actions">
+                                <span class="product-id">ID: ${product.id.toString().padStart(3, '0')}</span>
+                                <div class="action-buttons-small">
+                                    <button class="btn-small btn-edit" data-action="edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn-small btn-delete" data-action="delete">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add event listeners to action buttons
+                    const editBtn = productCard.querySelector('[data-action="edit"]');
+                    const deleteBtn = productCard.querySelector('[data-action="delete"]');
+                    
+                    editBtn.addEventListener('click', () => openEditProductModal(product));
+                    deleteBtn.addEventListener('click', () => openDeleteConfirmationModal(product));
+                    
+                    productsGrid.appendChild(productCard);
+                });
+            }
+            
+            // Save product (add or edit)
+            function saveProduct() {
+                const id = parseInt(productIdField.value) || ++currentId;
+                
+                // Filter out empty custom specs
+                const validCustomSpecs = customSpecs.filter(spec => 
+                    spec.name.trim() !== '' && spec.value.trim() !== ''
+                );
+                
+                const product = {
+                    id: id,
+                    name: productNameField.value.trim(),
+                    category: productCategoryField.value,
+                    image: productImageField.value.trim(),
+                    video: productVideoField.value.trim(),
+                    description: productDescriptionField.value.trim(),
+                    warranty: productWarrantyField.value.trim(),
+                    specs: {
+                        voltage: specVoltageField.value.trim(),
+                        size: specSizeField.value.trim(),
+                        power: specPowerField.value.trim(),
+                        fillingRange: specFillingRangeField.value.trim(),
+                        fillingAccuracy: specAccuracyField.value.trim(),
+                        noise: specNoiseField.value.trim(),
+                        workingSpeed: specSpeedField.value.trim(),
+                        material: specMaterialField.value.trim(),
+                        hopperVolume: specHopperField.value.trim(),
+                        weight: specWeightField.value.trim()
+                    },
+                    customSpecs: validCustomSpecs
+                };
+                
+                // Remove empty spec properties
+                Object.keys(product.specs).forEach(key => {
+                    if (!product.specs[key]) {
+                        delete product.specs[key];
+                    }
+                });
+                
+                // Check if editing existing product
+                const existingIndex = products.findIndex(p => p.id === id);
+                
+                if (existingIndex !== -1) {
+                    // Update existing product
+                    products[existingIndex] = product;
+                } else {
+                    // Add new product
+                    products.push(product);
+                }
+                
+                // Save to localStorage
+                saveProducts(products);
+                
+                // Close modal and refresh
+                closeModal(productFormModal);
+                filterAndRenderProducts();
+                
+                // Show success message
+                alert(`Product "${product.name}" has been ${existingIndex !== -1 ? 'updated' : 'added'} successfully!`);
+            }
+            
+            // Delete product
+            function deleteProduct(id) {
+                const productIndex = products.findIndex(p => p.id === id);
+                const productName = products[productIndex]?.name || '';
+                
+                if (productIndex !== -1) {
+                    products.splice(productIndex, 1);
+                    saveProducts(products);
+                    filterAndRenderProducts();
+                    alert(`Product "${productName}" has been deleted successfully!`);
+                }
+            }
+            
+            // Update statistics
+            function updateStats() {
+                const total = products.length;
+                const filtered = filteredProducts.length;
+                
+                resultsCount.textContent = `${filtered} product${filtered !== 1 ? 's' : ''}`;
+                productCountText.textContent = `Total: ${total} product${total !== 1 ? 's' : ''} | Showing: ${filtered}`;
+            }
+            
+            // Initialize stats
+            updateStats();
+            
+            // Listen for storage changes (when Products.html updates data)
+            window.addEventListener('storage', function(event) {
+                if (event.key === STORAGE_KEY) {
+                    products = loadProducts();
+                    filterAndRenderProducts();
+                }
+            });
+
+            // Auto-logout after 30 minutes of inactivity
+            let inactivityTimer;
+            function resetInactivityTimer() {
+                clearTimeout(inactivityTimer);
+                inactivityTimer = setTimeout(() => {
+                    if (checkLoginStatus()) {
+                        handleLogout();
+                        alert('Your session has expired due to inactivity. Please login again.');
+                    }
+                }, 30 * 60 * 1000); // 30 minutes
+            }
+
+            // Reset timer on user activity
+            ['click', 'mousemove', 'keypress', 'scroll'].forEach(event => {
+                document.addEventListener(event, resetInactivityTimer);
+            });
+
+            // Initialize inactivity timer
+            resetInactivityTimer();
+        });
+    </script>
+</body>
+</html>
